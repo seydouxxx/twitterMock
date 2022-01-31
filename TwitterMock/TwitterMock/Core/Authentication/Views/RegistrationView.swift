@@ -13,9 +13,12 @@ struct RegistrationView: View {
     @State private var fullname = ""
     @State private var password = ""
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack {
+            NavigationLink(destination: ProfilePhotoSelectorView(), isActive: $viewModel.didAuthenticateUser, label: {})
+
             AuthHeaderView(title1: "Get Started.", title2: "Create your account")
             
             VStack(spacing: 40) {
@@ -46,7 +49,12 @@ struct RegistrationView: View {
             .padding(32)
             
             Button {
-                print("Sign up here ..")
+                viewModel.register(
+                    withEmail: email,
+                    password: password,
+                    fullname: fullname,
+                    username: username
+                )
             } label: {
                 Text("Sign Up")
                     .font(.headline)

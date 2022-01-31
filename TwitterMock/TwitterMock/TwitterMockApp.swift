@@ -10,6 +10,7 @@ import Firebase
 
 @main
 struct TwitterMockApp: App {
+    @StateObject var viewModel = AuthViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -18,9 +19,9 @@ struct TwitterMockApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-//                ContentView()
-                LoginView()
+                ContentView()
             }
+            .environmentObject(viewModel)
         }
     }
 }
